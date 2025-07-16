@@ -52,7 +52,7 @@ A comprehensive NestJS backend application for managing hotels, travel packages,
 
    ```bash
    git clone <repository-url>
-   cd manali_projext
+   cd manali_backend
    ```
 
 2. **Install dependencies**
