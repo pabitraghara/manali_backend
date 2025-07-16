@@ -1,3 +1,5 @@
+# manali_backend
+
 # Manali Hotel & Package Management API
 
 A comprehensive NestJS backend application for managing hotels, travel packages, and schedules in Manali. This API supports both local authentication and Google OAuth, with role-based access control for admin and regular users.
@@ -47,17 +49,20 @@ A comprehensive NestJS backend application for managing hotels, travel packages,
 ## 🔧 Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd manali_projext
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up PostgreSQL database**
+
    ```bash
    # Create database
    createdb manali_db
@@ -65,6 +70,7 @@ A comprehensive NestJS backend application for managing hotels, travel packages,
 
 4. **Configure environment variables**
    Update the `.env` file with your configurations:
+
    ```env
    # Database Configuration
    DATABASE_HOST=localhost
@@ -113,12 +119,14 @@ npm run start:prod
 ```
 
 The application will be available at:
+
 - **API**: http://localhost:3000
 - **Swagger Documentation**: http://localhost:3000/api
 
 ## 👤 Default Admin Credentials
 
 After running the seed command, you can login with:
+
 - **Email**: admin@manali.com
 - **Password**: admin123
 
@@ -127,6 +135,7 @@ After running the seed command, you can login with:
 ### Authentication Endpoints
 
 #### Local Authentication
+
 ```bash
 # Register new user
 POST /auth/register
@@ -145,6 +154,7 @@ POST /auth/login
 ```
 
 #### Google OAuth
+
 ```bash
 # Initiate Google OAuth
 GET /auth/google
@@ -156,6 +166,7 @@ GET /auth/google/callback
 ### Hotel Management
 
 #### Create Hotel (Admin Only)
+
 ```bash
 POST /hotels
 Authorization: Bearer <jwt_token>
@@ -179,11 +190,13 @@ Authorization: Bearer <jwt_token>
 ```
 
 #### Get All Hotels
+
 ```bash
 GET /hotels?page=1&limit=10&city=Manali&type=luxury&minPrice=1000&maxPrice=10000
 ```
 
 #### Create Hotel Schedule
+
 ```bash
 POST /hotels/{hotelId}/schedules
 Authorization: Bearer <jwt_token>
@@ -198,6 +211,7 @@ Authorization: Bearer <jwt_token>
 ### Package Management
 
 #### Create Package (Admin Only)
+
 ```bash
 POST /packages
 Authorization: Bearer <jwt_token>
@@ -217,11 +231,13 @@ Authorization: Bearer <jwt_token>
 ```
 
 #### Get All Packages
+
 ```bash
 GET /packages?page=1&limit=10&type=adventure&minPrice=5000&maxPrice=20000
 ```
 
 #### Create Package Schedule
+
 ```bash
 POST /packages/{packageId}/schedules
 Authorization: Bearer <jwt_token>
@@ -238,16 +254,19 @@ Authorization: Bearer <jwt_token>
 ### Search & Availability
 
 #### Search Available Hotels
+
 ```bash
 GET /hotels/available/search?checkIn=2024-12-25&checkOut=2024-12-28
 ```
 
 #### Search Available Packages
+
 ```bash
 GET /packages/available/search?startDate=2024-12-25&endDate=2024-12-28
 ```
 
 #### Get Featured Packages
+
 ```bash
 GET /packages/featured?limit=6
 ```
@@ -255,18 +274,22 @@ GET /packages/featured?limit=6
 ## 🔒 Authentication & Authorization
 
 ### JWT Token Usage
+
 Include the JWT token in the Authorization header:
+
 ```bash
 Authorization: Bearer <your_jwt_token>
 ```
 
 ### Role-Based Access
+
 - **Admin**: Can create, update, and delete hotels and packages
 - **User**: Can view hotels and packages, manage their own bookings (future feature)
 
 ## 🗄️ Database Schema
 
 ### Users Table
+
 - id (UUID, Primary Key)
 - email (Unique)
 - name
@@ -279,6 +302,7 @@ Authorization: Bearer <your_jwt_token>
 - createdAt, updatedAt
 
 ### Hotels Table
+
 - id (UUID, Primary Key)
 - name, description, address, city, state, pincode
 - phone, email
@@ -290,6 +314,7 @@ Authorization: Bearer <your_jwt_token>
 - createdAt, updatedAt
 
 ### Hotel Schedules Table
+
 - id (UUID, Primary Key)
 - date
 - availableRooms, bookedRooms
@@ -299,6 +324,7 @@ Authorization: Bearer <your_jwt_token>
 - createdAt, updatedAt
 
 ### Packages Table
+
 - id (UUID, Primary Key)
 - name, description, highlights, itinerary
 - duration, nights, price, originalPrice
@@ -311,6 +337,7 @@ Authorization: Bearer <your_jwt_token>
 - createdAt, updatedAt
 
 ### Package Schedules Table
+
 - id (UUID, Primary Key)
 - startDate, endDate
 - availableSlots, bookedSlots
@@ -326,7 +353,7 @@ Authorization: Bearer <your_jwt_token>
 # Unit tests
 npm run test
 
-# E2E tests  
+# E2E tests
 npm run test:e2e
 
 # Test coverage
@@ -336,12 +363,14 @@ npm run test:cov
 ## 🚀 Deployment
 
 ### Environment Setup
+
 1. Set `NODE_ENV=production`
 2. Update database credentials
 3. Set secure JWT secret
 4. Configure Google OAuth for production domain
 
 ### Build and Run
+
 ```bash
 npm run build
 npm run start:prod
