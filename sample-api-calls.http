@@ -1,0 +1,255 @@
+### Manali Hotel & Package Management API
+### Sample API Calls for Testing
+
+# Variables
+@baseUrl = http://localhost:3000
+@adminToken = {{admin_login_response.response.body.access_token}}
+
+### 1. User Registration (Local)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123",
+  "name": "John Doe"
+}
+
+### 2. Admin Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@manali.com",
+  "password": "admin123"
+}
+
+### 3. User Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+### 4. Google OAuth (Open in browser)
+GET {{baseUrl}}/auth/google
+
+### 5. Get Current User Profile
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{adminToken}}
+
+### 6. Create Hotel (Admin Only)
+POST {{baseUrl}}/hotels
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "Hotel Snow Peak Manali",
+  "description": "Luxury hotel with stunning mountain views, located in the heart of Manali. Experience world-class hospitality with modern amenities.",
+  "address": "Mall Road, Near Bus Stand",
+  "city": "Manali",
+  "state": "Himachal Pradesh",
+  "pincode": "175131",
+  "phone": "+91-1902-252000",
+  "email": "info@snowpeakmanali.com",
+  "pricePerNight": 5500,
+  "totalRooms": 50,
+  "availableRooms": 45,
+  "type": "luxury",
+  "amenities": ["WiFi", "Swimming Pool", "Spa", "Restaurant", "Room Service", "Gym", "Parking"],
+  "images": ["hotel1.jpg", "hotel2.jpg", "hotel3.jpg"],
+  "rating": 4.5,
+  "reviewCount": 128,
+  "latitude": 32.2396,
+  "longitude": 77.1887
+}
+
+### 7. Create Budget Hotel
+POST {{baseUrl}}/hotels
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "Mountain View Lodge",
+  "description": "Cozy budget-friendly accommodation with beautiful mountain views. Perfect for backpackers and budget travelers.",
+  "address": "Old Manali Road",
+  "city": "Manali",
+  "state": "Himachal Pradesh",
+  "pincode": "175131",
+  "phone": "+91-1902-252001",
+  "email": "info@mountainviewlodge.com",
+  "pricePerNight": 2000,
+  "totalRooms": 25,
+  "availableRooms": 20,
+  "type": "budget",
+  "amenities": ["WiFi", "Restaurant", "Parking"],
+  "images": ["lodge1.jpg", "lodge2.jpg"],
+  "rating": 4.0,
+  "reviewCount": 85,
+  "latitude": 32.2450,
+  "longitude": 77.1900
+}
+
+### 8. Get All Hotels with Filters
+GET {{baseUrl}}/hotels?page=1&limit=10&city=Manali&type=luxury&minPrice=3000&maxPrice=9000&rating=4
+
+### 9. Get Single Hotel
+GET {{baseUrl}}/hotels/{{hotel_id}}
+
+### 10. Create Hotel Schedule
+POST {{baseUrl}}/hotels/{{hotel_id}}/schedules
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "date": "2024-12-25",
+  "availableRooms": 10,
+  "specialPrice": 9000,
+  "status": "available",
+  "notes": "Christmas special pricing"
+}
+
+### 11. Create Adventure Package
+POST {{baseUrl}}/packages
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "Manali Adventure Extravaganza",
+  "description": "Ultimate adventure package combining the best of Manali's outdoor activities. Perfect for thrill-seekers and nature lovers.",
+  "highlights": "River Rafting in Beas, Paragliding in Solang Valley, Trekking to Jogini Falls, Mountain Biking, Rock Climbing",
+  "itinerary": "Day 1: Arrival in Manali, Local sightseeing, Mall Road walk\nDay 2: Solang Valley - Paragliding, Zorbing, Cable Car\nDay 3: River Rafting in Beas, Visit to Vashisht Hot Springs\nDay 4: Trek to Jogini Falls, Mountain biking\nDay 5: Rohtang Pass (subject to permits), Departure",
+  "duration": 5,
+  "nights": 4,
+  "price": 18500,
+  "originalPrice": 22000,
+  "maxGroupSize": 15,
+  "minGroupSize": 2,
+  "type": "adventure",
+  "inclusions": [
+    "4 nights accommodation in 3-star hotel",
+    "All meals (breakfast, lunch, dinner)",
+    "All adventure activities as per itinerary",
+    "Professional guide and instructor",
+    "Transportation in Tempo Traveller",
+    "All entry fees and permits"
+  ],
+  "exclusions": [
+    "Personal expenses",
+    "Tips and gratuities",
+    "Travel insurance",
+    "Any activity not mentioned in inclusions"
+  ],
+  "images": ["adventure1.jpg", "adventure2.jpg", "adventure3.jpg"],
+  "destinations": ["Manali", "Solang Valley", "Rohtang Pass", "Vashisht", "Jogini Falls"],
+  "rating": 4.7,
+  "reviewCount": 95,
+  "terms": "Minimum age 12 years. Subject to weather conditions. Rohtang Pass visit depends on permits and road conditions.",
+  "cancellationPolicy": "50% refund if cancelled 7 days before departure. 25% refund if cancelled 3-6 days before. No refund if cancelled within 3 days."
+}
+
+### 12. Create Family Package
+POST {{baseUrl}}/packages
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "Manali Family Fun Package",
+  "description": "Perfect family getaway package with activities suitable for all ages. Create memorable moments with your loved ones.",
+  "highlights": "Hadimba Temple visit, Solang Valley sightseeing, Apple orchards visit, Local culture experience",
+  "itinerary": "Day 1: Arrival, Hadimba Temple, Local market\nDay 2: Solang Valley, Cable car ride\nDay 3: Rohtang Pass (subject to availability), Local sightseeing\nDay 4: Apple orchards, Naggar Castle, Departure",
+  "duration": 4,
+  "nights": 3,
+  "price": 12500,
+  "originalPrice": 14000,
+  "maxGroupSize": 25,
+  "minGroupSize": 4,
+  "type": "family",
+  "inclusions": [
+    "3 nights accommodation in family-friendly hotel",
+    "Daily breakfast and dinner",
+    "All sightseeing as per itinerary",
+    "Transportation in AC vehicle",
+    "Professional guide"
+  ],
+  "exclusions": [
+    "Lunch",
+    "Personal expenses",
+    "Entry fees not mentioned",
+    "Any meals not specified"
+  ],
+  "images": ["family1.jpg", "family2.jpg", "family3.jpg"],
+  "destinations": ["Manali", "Solang Valley", "Rohtang Pass", "Naggar"],
+  "rating": 4.3,
+  "reviewCount": 156,
+  "terms": "Children below 5 years free. Extra bed charges applicable for children above 5 years.",
+  "cancellationPolicy": "Free cancellation up to 5 days before departure. 30% charges for 2-4 days before departure."
+}
+
+### 13. Get All Packages with Filters
+GET {{baseUrl}}/packages?page=1&limit=10&type=adventure&minPrice=10000&maxPrice=25000&duration=5&destination=Manali
+
+### 14. Get Featured Packages
+GET {{baseUrl}}/packages/featured?limit=4
+
+### 15. Create Package Schedule
+POST {{baseUrl}}/packages/{{package_id}}/schedules
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "startDate": "2024-12-20",
+  "endDate": "2024-12-24",
+  "availableSlots": 12,
+  "specialPrice": 20000,
+  "status": "available",
+  "notes": "Christmas special batch with additional bonfire night",
+  "pickupLocation": "Mall Road Bus Stand, Manali",
+  "pickupTime": "08:00:00"
+}
+
+### 16. Get Hotel Schedules
+GET {{baseUrl}}/hotels/{{hotel_id}}/schedules?startDate=2024-12-01&endDate=2024-12-31
+
+### 17. Get Package Schedules  
+GET {{baseUrl}}/packages/{{package_id}}/schedules?startDate=2024-12-01&endDate=2024-12-31
+
+### 18. Search Available Hotels
+GET {{baseUrl}}/hotels/available/search?checkIn=2024-12-25&checkOut=2024-12-28
+
+### 19. Search Available Packages
+GET {{baseUrl}}/packages/available/search?startDate=2024-12-25&endDate=2024-12-28
+
+### 20. Update Hotel (Admin/Owner only)
+PATCH {{baseUrl}}/hotels/{{hotel_id}}
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "pricePerNight": 6000,
+  "amenities": ["WiFi", "Swimming Pool", "Spa", "Restaurant", "Room Service", "Gym", "Parking", "Conference Hall"]
+}
+
+### 21. Update Package (Admin/Owner only)
+PATCH {{baseUrl}}/packages/{{package_id}}
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "price": 19500,
+  "maxGroupSize": 18
+}
+
+### 22. Delete Hotel (Admin/Owner only)
+DELETE {{baseUrl}}/hotels/{{hotel_id}}
+Authorization: Bearer {{adminToken}}
+
+### 23. Delete Package (Admin/Owner only)
+DELETE {{baseUrl}}/packages/{{package_id}}
+Authorization: Bearer {{adminToken}}
+
+### 24. Get All Users (Admin only - if endpoint exists)
+GET {{baseUrl}}/users
+Authorization: Bearer {{adminToken}}
